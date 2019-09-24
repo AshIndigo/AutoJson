@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class AutoJsonApi {
 
-    private static final HashMap<Identifier, AutoConfig> jsonList = new HashMap<>();
+    private static final HashMap<Identifier, AutoConfig> jsonMap = new HashMap<>();
     private static final ArrayListMultimap<String, SoundEvent> soundMap = ArrayListMultimap.create();
 
     /**
@@ -23,13 +23,19 @@ public class AutoJsonApi {
         if (mode == null) {
             throw new IllegalArgumentException("AutoConfig cannot be null!");
         }
-        jsonList.put(identifier, mode);
+        jsonMap.put(identifier, mode);
     }
 
-    public static HashMap<Identifier, AutoConfig> getList() {
-        return jsonList;
+    /**
+     * @return The internal entry map
+     */
+    public static HashMap<Identifier, AutoConfig> getMap() {
+        return jsonMap;
     }
 
+    /**
+     * @return The internal sound map
+     */
     public static ArrayListMultimap<String, SoundEvent> getSoundMap() {
         return soundMap;
     }

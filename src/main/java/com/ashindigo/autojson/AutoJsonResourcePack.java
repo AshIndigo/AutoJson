@@ -15,8 +15,10 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// This will automatically generate json files as required
-// Textures will be either passed on as normal or if specified will attempt to get the texture from config/modid/name.png
+/**
+ * This will automatically generate json files as required
+ * Textures will be either passed on as normal or if specified will attempt to get the texture from config/modid/name.png
+ */
 public class AutoJsonResourcePack extends AbstractFileResourcePack {
 
     public AutoJsonResourcePack() {
@@ -42,15 +44,15 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
                 }
                 return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1] + "/" + names[names.length - 1]));
             } else if (names[2].equals("textures")) {
-                if (AutoJsonApi.getList().get(id).getTextureMode() == AutoConfig.AutoConfigTextureMode.EXTERNAL) {
+                if (AutoJsonApi.getMap().get(id).getTextureMode() == AutoConfig.AutoConfigTextureMode.EXTERNAL) {
                     if (!new File(MinecraftClient.getInstance().runDirectory, "autojson/").exists()) {
                         new File(MinecraftClient.getInstance().runDirectory, "autojson/").mkdirs();
                     }
                     return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "autojson/" + names[names.length - 1]));
                 }
             } else {
-                if (AutoJsonApi.getList().containsKey(id)) {
-                    switch (AutoJsonApi.getList().get(id).getType()) {
+                if (AutoJsonApi.getMap().containsKey(id)) {
+                    switch (AutoJsonApi.getMap().get(id).getType()) {
                         case ITEM:
                             return JsonGenerator.getItemJson(Objects.requireNonNull(id));
                         case BLOCK:
@@ -70,7 +72,7 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
                 return false;
             }
             if (var2.getPath().split("/").length > 2) {
-                return AutoJsonApi.getList().containsKey(new Identifier(var2.getNamespace(), FilenameUtils.removeExtension(var2.getPath().split("/")[2])));
+                return AutoJsonApi.getMap().containsKey(new Identifier(var2.getNamespace(), FilenameUtils.removeExtension(var2.getPath().split("/")[2])));
             }
             return var2.getPath().equals("sounds.json") || var2.getPath().equals("pack.mcmeta") || var2.getPath().equals("lang/en_us.json");
         }
@@ -88,8 +90,7 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
         @Override
         public Set<String> getNamespaces (ResourceType var1){
             HashSet<String> set = new HashSet<>();
-            //set.add("autojson");
-            for (Identifier id : AutoJsonApi.getList().keySet()) {
+            for (Identifier id : AutoJsonApi.getMap().keySet()) {
                 set.add(id.getNamespace());
             }
             return set;

@@ -14,8 +14,18 @@ import java.util.logging.Logger;
 
 import static com.ashindigo.autojson.api.AutoJsonApi.getSoundMap;
 
+/**
+ * Where all the magic happens
+ * <br> All relevant json files are generated here
+ */
 public class JsonGenerator {
 
+    /**
+     * Generates the item json
+     *
+     * @param identifier The item's identifier used to determine its texture
+     * @return A ByteStream containing the json file
+     */
     public static ByteArrayInputStream getItemJson(Identifier identifier) {
         JsonObject file = new JsonObject();
         file.addProperty("forge_marker", 1);
@@ -26,6 +36,12 @@ public class JsonGenerator {
         return new ByteArrayInputStream(file.toString().getBytes());
     }
 
+    /**
+     * Determines whether a block model or blockstate is needed
+     * @param name A parent directory name, used to determine which json is needed
+     * @param id The Identifier of the block
+     * @return A ByteStream with the relevant JSON
+     */
     public static ByteArrayInputStream getBlockJson(String name, Identifier id) {
         switch (name.split("/")[2]) {
             case "blockstates": return getBlockstateJson(id);
@@ -34,6 +50,11 @@ public class JsonGenerator {
         }
     }
 
+    /**
+     * Gets the block model
+     * @param id The blocks identifier
+     * @return The ByteStream containing the json file
+     */
     public static ByteArrayInputStream getBlockModelJson(Identifier id) {
         JsonObject file = new JsonObject();
         file.addProperty("parent", "block/cube_all");
@@ -43,6 +64,11 @@ public class JsonGenerator {
         return new ByteArrayInputStream(file.toString().getBytes());
     }
 
+    /**
+     * Gets the blockstate json
+     * * @param id The blocks identifier
+     * @return The ByteStream containing the json file
+     */
     public static ByteArrayInputStream getBlockstateJson(Identifier id) {
         JsonObject file = new JsonObject();
         JsonObject variants = new JsonObject();
@@ -53,6 +79,11 @@ public class JsonGenerator {
         return new ByteArrayInputStream(file.toString().getBytes());
     }
 
+    /**
+     * Generates the sounds.json file
+     * @param name The modid that is requesting a sounds.json
+     * @return The ByteStream containing sounds.json
+     */
     public static ByteArrayInputStream getSoundsJson(String name) {
         JsonObject file = new JsonObject();
         for (SoundEvent sound : getSoundMap().get(name)) {
@@ -69,10 +100,14 @@ public class JsonGenerator {
         return new ByteArrayInputStream(file.toString().getBytes());
     }
 
+    /**
+     * Generates the lang file independent of any specific mod
+     * @return ByteStream containing en_us.json
+     */
     public static ByteArrayInputStream getLangFile() {
         JsonObject file = new JsonObject();
-        for (Identifier id : AutoJsonApi.getList().keySet()) {
-            file.addProperty((AutoJsonApi.getList().get(id).getType() == AutoConfig.AutoConfigType.ITEM ? "item." : "tile.") + id.getNamespace() + "." + id.getPath(), AutoJsonApi.getList().get(id).getLangName());
+        for (Identifier id : AutoJsonApi.getMap().keySet()) {
+            file.addProperty((AutoJsonApi.getMap().get(id).getType() == AutoConfig.AutoConfigType.ITEM ? "item." : "tile.") + id.getNamespace() + "." + id.getPath(), AutoJsonApi.getMap().get(id).getLangName());
         }
         return new ByteArrayInputStream(file.toString().getBytes());
     }
