@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "autojson",
+  "version": "${version}",
+
+  "name": "Auto Json",
+  "description": "Auto-creates json files for blocks, items and sounds",
+  "authors": [
+    "AshIndigo"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "https://github.com/AshIndigo/AutoJsonLib"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/customrecord/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+  },
+  "mixins": [
+    "autojson.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
