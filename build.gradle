@@ -69,12 +69,15 @@ publishing {
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
 			}
+//			artifact(devJar) {
+//				builtBy
+//			}
 		}
 	}
 
 	// select the repositories you want to publish to
 	repositories {
 		// uncomment to publish to the local maven
-		// mavenLocal()
+		 mavenLocal()
 	}
 }

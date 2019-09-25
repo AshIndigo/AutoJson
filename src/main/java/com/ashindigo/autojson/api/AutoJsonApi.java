@@ -1,9 +1,15 @@
 package com.ashindigo.autojson.api;
 
 import com.google.common.collect.ArrayListMultimap;
+import net.fabricmc.fabric.api.resource.ModResourcePack;
+import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.resource.DefaultResourcePack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -44,8 +50,8 @@ public class AutoJsonApi {
      * Will assume it's external otherwise you'd be using your own sounds.json
      * @param soundEvent ID for the sound
      */
-    public static void addSoundEntry(SoundEvent soundEvent) {
-        soundMap.put(soundEvent.getId().getNamespace(), soundEvent);
+    public static void addSoundEntry(Identifier id, SoundEvent soundEvent) {
+        soundMap.put(id.getNamespace(), soundEvent);
     }
     
 }

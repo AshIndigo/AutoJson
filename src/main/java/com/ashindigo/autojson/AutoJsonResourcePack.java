@@ -69,6 +69,10 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
         @Override
         public boolean contains(ResourceType var1, Identifier var2){
             if (var1 == ResourceType.SERVER_DATA) {
+                System.out.println(var2);
+//                if (AutoJsonApi.getRedirectList().contains(var2.getNamespace())) {
+//                    return true;
+//                }
                 return false;
             }
             if (var2.getPath().split("/").length > 2) {
@@ -84,7 +88,14 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
 
         @Override
         public Collection<Identifier> findResources(ResourceType type, String path, int depth, Predicate<String> predicate) {
-           return Collections.emptyList();
+        Collection resources = Collections.emptyList();
+//            ArrayList<Identifier> resources = new ArrayList<>();
+//            for (String modid : AutoJsonApi.getRedirectList()) {
+//                for (File file : Objects.requireNonNull(new File(MinecraftClient.getInstance().runDirectory, "config/" + modid + "/").listFiles())) {
+//                    resources.add(new Identifier(modid, "recipes/" + file.getName()));
+//                }
+//            }
+            return resources;
         }
 
         @Override
