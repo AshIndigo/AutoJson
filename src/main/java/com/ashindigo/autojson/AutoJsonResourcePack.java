@@ -45,10 +45,10 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
                 return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1] + "/" + names[names.length - 1]));
             } else if (names[2].equals("textures")) {
                 if (AutoJsonApi.getMap().get(id).getTextureMode() == AutoConfig.AutoConfigTextureMode.EXTERNAL) {
-                    if (!new File(MinecraftClient.getInstance().runDirectory, "autojson/").exists()) {
-                        new File(MinecraftClient.getInstance().runDirectory, "autojson/").mkdirs();
+                    if (!new File(MinecraftClient.getInstance().runDirectory, "config/" + names[names.length - 1]).exists()) {
+                        new File(MinecraftClient.getInstance().runDirectory, "config/" + names[names.length - 1]).mkdirs();
                     }
-                    return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "autojson/" + names[names.length - 1]));
+                    return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "config/" + names[names.length - 1]));
                 }
             } else {
                 if (AutoJsonApi.getMap().containsKey(id)) {
@@ -69,10 +69,6 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
         @Override
         public boolean contains(ResourceType var1, Identifier var2){
             if (var1 == ResourceType.SERVER_DATA) {
-                System.out.println(var2);
-//                if (AutoJsonApi.getRedirectList().contains(var2.getNamespace())) {
-//                    return true;
-//                }
                 return false;
             }
             if (var2.getPath().split("/").length > 2) {
@@ -88,14 +84,7 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
 
         @Override
         public Collection<Identifier> findResources(ResourceType type, String path, int depth, Predicate<String> predicate) {
-        Collection resources = Collections.emptyList();
-//            ArrayList<Identifier> resources = new ArrayList<>();
-//            for (String modid : AutoJsonApi.getRedirectList()) {
-//                for (File file : Objects.requireNonNull(new File(MinecraftClient.getInstance().runDirectory, "config/" + modid + "/").listFiles())) {
-//                    resources.add(new Identifier(modid, "recipes/" + file.getName()));
-//                }
-//            }
-            return resources;
+            return Collections.emptyList();
         }
 
         @Override
@@ -108,7 +97,7 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
         }
 
         @Override
-        public void close () throws IOException {
+        public void close () {
 
         }
     }
