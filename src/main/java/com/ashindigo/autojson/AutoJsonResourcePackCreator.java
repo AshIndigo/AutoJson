@@ -1,7 +1,5 @@
 package com.ashindigo.autojson;
 
-import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
-import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.resource.ResourcePackContainer;
 import net.minecraft.resource.ResourcePackCreator;
 

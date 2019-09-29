@@ -45,10 +45,10 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
                 return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1] + "/" + names[names.length - 1]));
             } else if (names[2].equals("textures")) {
                 if (AutoJsonApi.getMap().get(id).getTextureMode() == AutoConfig.AutoConfigTextureMode.EXTERNAL) {
-                    if (!new File(MinecraftClient.getInstance().runDirectory, "config/" + names[names.length - 1]).exists()) {
-                        new File(MinecraftClient.getInstance().runDirectory, "config/" + names[names.length - 1]).mkdirs();
+                    if (!new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1]).exists()) {
+                        new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1]).mkdirs();
                     }
-                    return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "config/" + names[names.length - 1]));
+                    return new FileInputStream(new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1] + "/" + names[names.length - 1]));
                 }
             } else {
                 if (AutoJsonApi.getMap().containsKey(id)) {

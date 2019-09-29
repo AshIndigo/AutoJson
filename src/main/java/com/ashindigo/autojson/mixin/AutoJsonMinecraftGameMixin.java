@@ -2,14 +2,9 @@ package com.ashindigo.autojson.mixin;
 
 import com.ashindigo.autojson.AutoJsonResourcePack;
 import com.google.common.collect.Lists;
-import net.fabricmc.fabric.impl.resources.ModResourcePackUtil;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.DefaultClientResourcePack;
-import net.minecraft.resource.ReloadableResourceManager;
 import net.minecraft.resource.ResourcePack;
-import net.minecraft.resource.ResourceType;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,21 +16,11 @@ import java.util.concurrent.CompletableFuture;
 
 @Mixin(MinecraftClient.class)
 public class AutoJsonMinecraftGameMixin {
-	@Shadow
-	private ReloadableResourceManager resourceManager;
 
 	private void modifyResourcePackList(List<ResourcePack> list) {
 		List<ResourcePack> oldList = Lists.newArrayList(list);
 		list.clear();
-
-		for (int i = 0; i < oldList.size(); i++) {
-			ResourcePack pack = oldList.get(i);
-			list.add(pack);
-
-			if (pack instanceof DefaultClientResourcePack) {
-				//ModResourcePackUtil.appendModResourcePacks(list, ResourceType.CLIENT_RESOURCES);
-			}
-		}
+		list.addAll(oldList);
 		list.add(new AutoJsonResourcePack());
 	}
 
