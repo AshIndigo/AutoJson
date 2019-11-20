@@ -16,10 +16,10 @@
 
   "environment": "*",
   "entrypoints": {
+    "client": [
+      "com.ashindigo.autojson.AutoJsonClient"
+    ]
   },
-  "mixins": [
-    "autojson.mixins.json"
-  ],
 
   "depends": {
     "fabricloader": ">=0.4.0",
