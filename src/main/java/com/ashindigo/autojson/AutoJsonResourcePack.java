@@ -32,11 +32,11 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
             return new ByteArrayInputStream(("{\n \"pack\": {\n   \"description\": \"AutoJsonLib's internal pack\",\n   \"pack_format\": 4\n}\n}").getBytes(StandardCharsets.UTF_8));
         } else if (name.equals("pack.png")) {
             return new ByteArrayInputStream("".getBytes());
-        } else  if (names.length > 1) {
+        } else if (names.length > 1) {
             Identifier id = new Identifier(names[1], FilenameUtils.removeExtension(names[names.length - 1]));
             if (name.equals("assets/" + names[1] + "/sounds.json")) {
                 return JsonGenerator.getSoundsJson(names[1]);
-            } else if(name.endsWith("/en_us.json")) {
+            } else if (name.endsWith("/en_us.json")) {
                 return JsonGenerator.getLangFile();
             } else if (name.endsWith(".ogg")) {
                 if (!new File(MinecraftClient.getInstance().runDirectory, "config/" + names[1] + "/" + names[names.length - 1]).exists()) {
@@ -66,38 +66,38 @@ public class AutoJsonResourcePack extends AbstractFileResourcePack {
         return new ByteArrayInputStream("".getBytes()); // Could be bad
     }
 
-        @Override
-        public boolean contains(ResourceType var1, Identifier var2){
-            if (var1 == ResourceType.SERVER_DATA) {
-                return false;
-            }
-            if (var2.getPath().split("/").length > 2) {
-                return AutoJsonApi.getMap().containsKey(new Identifier(var2.getNamespace(), FilenameUtils.removeExtension(var2.getPath().split("/")[2])));
-            }
-            return var2.getPath().equals("sounds.json") || var2.getPath().equals("pack.mcmeta") || var2.getPath().equals("lang/en_us.json");
+    @Override
+    public boolean contains(ResourceType var1, Identifier var2) {
+        if (var1 == ResourceType.SERVER_DATA) {
+            return false;
         }
-
-        @Override
-        protected boolean containsFile (String var1){
-            return false; // NO-OP
+        if (var2.getPath().split("/").length > 2) {
+            return AutoJsonApi.getMap().containsKey(new Identifier(var2.getNamespace(), FilenameUtils.removeExtension(var2.getPath().split("/")[2])));
         }
-
-        @Override
-        public Collection<Identifier> findResources(ResourceType type, String path, int depth, Predicate<String> predicate) {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public Set<String> getNamespaces (ResourceType var1){
-            HashSet<String> set = new HashSet<>();
-            for (Identifier id : AutoJsonApi.getMap().keySet()) {
-                set.add(id.getNamespace());
-            }
-            return set;
-        }
-
-        @Override
-        public void close () {
-
-        }
+        return var2.getPath().equals("sounds.json") || var2.getPath().equals("pack.mcmeta") || var2.getPath().equals("lang/en_us.json");
     }
+
+    @Override
+    protected boolean containsFile(String var1) {
+        return false; // NO-OP
+    }
+
+    @Override
+    public Collection<Identifier> findResources(ResourceType type, String namespace, String string, int i, Predicate<String> predicate) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public Set<String> getNamespaces(ResourceType var1) {
+        HashSet<String> set = new HashSet<>();
+        for (Identifier id : AutoJsonApi.getMap().keySet()) {
+            set.add(id.getNamespace());
+        }
+        return set;
+    }
+
+    @Override
+    public void close() {
+
+    }
+}
